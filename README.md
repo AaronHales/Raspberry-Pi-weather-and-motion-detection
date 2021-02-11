@@ -25,6 +25,11 @@
 ###### @lxterminal -e file/path/of/launcher_motion.sh
 ###### @lxterminal -e file/path/of/launcher_SenseHat.sh
 #
+##### change the file path of the .sh file to the correct path
+###### launcher_motion.sh should read:
+####### /usr/bin/python file/path/of/weather_pictures.py
+###### launcher_SenseHat.sh should read:
+####### /usr/bin/python3 file/path/of/SenseHat_Data.py
 #### Then save the file and exit, reboot pi 
 #
 #
