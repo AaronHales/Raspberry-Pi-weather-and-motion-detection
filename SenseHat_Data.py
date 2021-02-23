@@ -5,22 +5,8 @@ from sense_hat import SenseHat
 import datetime
 from time import sleep
 
-filePath = "/home/pi/Desktop/weather_station_pictures/Data_from_SenseHat/SenseHat_Data.txt"
-
-sense = SenseHat()
-e = [0, 0, 0]
-blank = [
-    e, e, e, e, e, e, e, e,
-    e, e, e, e, e, e, e, e,
-    e, e, e, e, e, e, e, e,
-    e, e, e, e, e, e, e, e,
-    e, e, e, e, e, e, e, e,
-    e, e, e, e, e, e, e, e,
-    e, e, e, e, e, e, e, e,
-    e, e, e, e, e, e, e, e
-]
-sense.set_pixels(blank)
-print("Starting SenseHat weather script")
+filePath = "/home/pi/Desktop/Raspberry-Pi-weather-and-motion-detection/Data_from_SenseHat/SenseHat_Data.txt"
+delay = 60
 
 while True:
     # Prints datetime
@@ -30,17 +16,34 @@ while True:
     print("Getting data from SenseHat...")
     # Tries to get SenseHat data
     try:
-        # Get SenseHat data values
-        temp = sense.get_temperature_from_pressure()
-        humid = sense.get_humidity()
-        press = sense.get_pressure()
+        sense = SenseHat()
+        try:
+            e = [0, 0, 0]
+            blank = [
+            e, e, e, e, e, e, e, e,
+            e, e, e, e, e, e, e, e,
+            e, e, e, e, e, e, e, e,
+            e, e, e, e, e, e, e, e,
+            e, e, e, e, e, e, e, e,
+            e, e, e, e, e, e, e, e,
+            e, e, e, e, e, e, e, e,
+            e, e, e, e, e, e, e, e
+            ]
+            sense.set_pixels(blank)
+            # Get SenseHat data values
+            temp = sense.get_temperature_from_pressure()
+            humid = sense.get_humidity()
+            press = sense.get_pressure()
+            sense.clear()
+        except:
+            print("Something went wrong unable to get SenseHat data. Try placing SenseHat on the Raspberry Pi again.")
         
         # Round SenseHat values
         tempC = round(temp, 2)
         tempF = round(1.8 * (temp) + 32, 2)
         humidR = round(humid, 2)
         pressR = round(press, 2)
-        
+            
         # Prints the values of temperature and humidity from SenseHat
         print("temp " + u"\u00B0" + "C = {:.2f}".format(tempC))
         print("temp " + u"\u00B0" + "F = {:.2f}".format(tempF))
@@ -59,4 +62,5 @@ while True:
             print("Something went wrong. Unable to open SenseHat_Data.txt\n")
     except:
         print("An error occurred. Unable to get data from SenseHat\n")
-    sleep(60)
+    sleep(delay)
+
