@@ -23,13 +23,16 @@ def getTime():
     return currentTime
 
 while True:
-    motionState = picam.motion()
-    print("Motion Detected: " + str(motionState))
-    if motionState:
-        currentTime = getTime()
-        try:
-            picName = captureImage(currentTime, picPath)
-            print("Saved picture.")
-        except:
-            print("Something went wrong. Unable to take picture.")
-        
+    try:
+        motionState = picam.motion()
+        print("Motion Detected: " + str(motionState))
+        if motionState:
+            currentTime = getTime()
+            try:
+                picName = captureImage(currentTime, picPath)
+                print("Saved picture.")
+            except:
+                print("Something went wrong. Unable to take picture.")
+    except:
+        print("Something went wrong. Unable to take picture. Check that the camera ribbon cable is securely inserted.")
+
